@@ -2,6 +2,7 @@ FROM centos:centos7.2.1511
 
 MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 
+RUN yum -y install yum-plugin-ovl
 RUN yum -y update 
 #Install common
 RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
