@@ -5,7 +5,7 @@ MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 RUN yum -y update 
 #Install common
 RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
-RUN yum -y install wget tar vim
+RUN yum -y install wget tar
 
 #Install git
 ENV GIT_VERSION 2.6.4
