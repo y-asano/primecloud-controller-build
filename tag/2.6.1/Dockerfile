@@ -10,8 +10,9 @@ RUN yum -y install wget tar && yum clean all
 ENV GIT_VERSION 2.6.4
 ENV GIT_HOME /opt/git/git-$GIT_VERSION
 RUN mkdir -p $GIT_HOME
-RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc
+RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc file
 RUN wget -O /tmp/v$GIT_VERSION.tar.gz https://github.com/git/git/archive/v$GIT_VERSION.tar.gz
+RUN ls -al /tmp/v$GIT_VERSION.tar.gz && file /tmp/v$GIT_VERSION.tar.gz
 RUN cd /opt/git && tar zxf /tmp/v$GIT_VERSION.tar.gz
 RUN cd $GIT_HOME && make prefix=/usr/local all && make prefix=/usr/local install
 
@@ -30,6 +31,9 @@ RUN mkdir -p /opt/pccbuild
 
 ENV PCC_REPOSITORY https://github.com/primecloud-controller-org/primecloud-controller.git
 ENV PCC_VERSION 2.6.1
+
+ENV JAVA_HOME /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin
 
 #choose master branch
 RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
