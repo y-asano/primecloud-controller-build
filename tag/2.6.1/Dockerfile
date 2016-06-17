@@ -4,7 +4,7 @@ MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 
 RUN yum -y update && yum clean all
 #Install common
-RUN yum -y install wget tar vim && yum clean all
+RUN yum -y install wget tar && yum clean all
 
 #Install git
 ENV GIT_VERSION 2.6.4
