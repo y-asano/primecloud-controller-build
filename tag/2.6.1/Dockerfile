@@ -4,6 +4,7 @@ MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 
 RUN yum -y update && yum clean all
 #Install common
+RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
 RUN yum -y install wget tar && yum clean all
 
 #Install git
