@@ -1,21 +1,14 @@
-FROM centos:centos6.6
+FROM centos:centos7.2.1511
 
 MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 
 RUN yum -y update 
 #Install common
 RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
-RUN yum -y install wget tar
+RUN yum -y install wget tar vim git
 
 #Install git
-ENV GIT_VERSION 2.6.4
-ENV GIT_HOME /opt/git/git-$GIT_VERSION
-RUN mkdir -p $GIT_HOME
-RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
-RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc 
-RUN wget -O /tmp/v$GIT_VERSION.tar.gz https://github.com/git/git/archive/v$GIT_VERSION.tar.gz
-RUN cd /opt/git && tar zxf /tmp/v$GIT_VERSION.tar.gz
-RUN cd $GIT_HOME && make prefix=/usr/local all && make prefix=/usr/local install
+#RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc 
 
 #Install JDK6
 RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
