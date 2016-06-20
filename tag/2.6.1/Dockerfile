@@ -16,7 +16,7 @@ RUN yum -y install wget tar vim git
 RUN yum -y install java-1.6.0-openjdk java-1.6.0-openjdk-devel
 
 # Install Maven
-ENV MAVEN_VERSION 3.2.5
+ENV MAVEN_VERSION 3.4.0
 ENV M2_HOME /opt/maven/apache-maven-$MAVEN_VERSION
 RUN mkdir -p $M2_HOME
 RUN wget -O /tmp/apache-maven-$MAVEN_VERSION-bin.tar.gz http://ftp.kddilabs.jp/infosystems/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz
