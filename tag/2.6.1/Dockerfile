@@ -1,5 +1,3 @@
-#FROM centos:centos7.2.1511
-
 FROM ubuntu:14.04
 
 MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
@@ -26,8 +24,6 @@ RUN mkdir -p /opt/pccbuild
 ENV PCC_REPOSITORY https://github.com/primecloud-controller-org/primecloud-controller.git
 ENV PCC_VERSION 2.6.1
 
-#ENV JAVA_HOME /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
-#ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin
 
 #choose master branch
 RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
@@ -35,7 +31,7 @@ RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
 #pre build for maven dependency
 WORKDIR /primecloud-controller
 RUN git pull
-RUN mvn clean install -Dmvn.test.skip=true
+#RUN mvn clean install -Dmvn.test.skip=true
 
 # Build PCC
 ADD build.sh /opt/build.sh
