@@ -1,19 +1,16 @@
-FROM centos:centos7.2.1511
+#FROM centos:centos7.2.1511
+
+FROM ubuntu:14.04
 
 MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 
-RUN yum -y install yum-plugin-ovl
-RUN yum -y update 
-#Install common
-#RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
-RUN yum -y install wget tar vim git
+RUN apt update
+RUN apt upgrade -y
 
-#Install git
-#RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc 
-
+RUN apt install -y wget tar vim git
 #Install JDK6
-#RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
-RUN yum -y install java-1.6.0-openjdk java-1.6.0-openjdk-devel
+RUN apt install -y openjdk-6-jdk
+
 
 # Install Maven
 ENV MAVEN_VERSION 3.2.5
@@ -23,15 +20,14 @@ RUN wget -O /tmp/apache-maven-$MAVEN_VERSION-bin.tar.gz http://ftp.kddilabs.jp/i
 RUN cd /opt/maven && tar zxf /tmp/apache-maven-$MAVEN_VERSION-bin.tar.gz
 RUN ln -s $M2_HOME/bin/mvn /usr/bin/mvn
 RUN rm /tmp/apache-maven-$MAVEN_VERSION-bin.tar.gz
-
 # Environment parameters
 RUN mkdir -p /opt/pccbuild
 
 ENV PCC_REPOSITORY https://github.com/primecloud-controller-org/primecloud-controller.git
 ENV PCC_VERSION 2.6.1
 
-ENV JAVA_HOME /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
-ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin
+#ENV JAVA_HOME /usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+#ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin
 
 #choose master branch
 RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
@@ -39,8 +35,7 @@ RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
 #pre build for maven dependency
 WORKDIR /primecloud-controller
 RUN git pull
-#RUN mvn clean install -Dmvn.test.skip=true
-RUN mvn dependency:resolve
+RUN mvn clean install -Dmvn.test.skip=true
 
 # Build PCC
 ADD build.sh /opt/build.sh
