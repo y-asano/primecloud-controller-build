@@ -7,7 +7,7 @@ RUN apt upgrade -y
 
 RUN apt install -y wget tar vim git
 #Install JDK6
-RUN apt install -y openjdk-6-jdk
+RUN apt install -y openjdk-7-jdk
 
 
 # Install Maven
@@ -31,7 +31,7 @@ RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
 #pre build for maven dependency
 WORKDIR /primecloud-controller
 RUN git pull
-#RUN mvn clean install -Dmvn.test.skip=true
+RUN mvn clean install -Dmvn.test.skip=true
 
 # Build PCC
 ADD build.sh /opt/build.sh
