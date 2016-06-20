@@ -39,7 +39,8 @@ RUN git clone --depth=1 -b $PCC_VERSION $PCC_REPOSITORY
 #pre build for maven dependency
 WORKDIR /primecloud-controller
 RUN git pull
-RUN mvn clean install -Dmvn.test.skip=true
+#RUN mvn clean install -Dmvn.test.skip=true
+RUN mvn dependency:resolve
 
 # Build PCC
 ADD build.sh /opt/build.sh
