@@ -5,14 +5,9 @@ MAINTAINER Tetsurou Ayano (tetsurou.ayano@scsk.jp)
 RUN yum -y install yum-plugin-ovl
 RUN yum -y update 
 #Install common
-#RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
 RUN yum -y install wget tar vim git
 
-#Install git
-#RUN yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc 
-
-#Install JDK6
-#RUN rpm --rebuilddb # work around  https://github.com/docker/docker/issues/10180
+#Install JDK7
 RUN yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 
 # Install Maven
